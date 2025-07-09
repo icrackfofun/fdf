@@ -1,43 +1,54 @@
 
-NAME        := fdf
-CC          := cc
-CFLAGS      := -Wall -Wextra -Werror -Iinclude -Ilib -Iminilibx
-MLXFLAGS    := -Lminilibx -lmlx -framework OpenGL -framework AppKit
-LIBFT       := lib/libft.a
-MLX         := minilibx/libmlx.a
+NAME		=	fdf
+LIBFT		=	lib/
+MLX			=	minilibx/
+LIBFT_A		=	$(addprefix $(LIBFT),libft.a)
+MLX_A		=	$(addprefix $(MLX),libmlx.a)
+OBJDIR		=	obj
 
-SRC_DIR     := src
-OBJ_DIR     := obj
 
-SRCS        := $(wildcard $(SRC_DIR)/*.c)
-OBJS        := $(SRCS:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
+CC			=	gcc
+INCLUDE 	=	include
+CFLAGS		=	-Wall -Wextra -Werror -Wno-unused-parameter -I$(INCLUDE) -I$(LIBFT) -I$(MLX)
+RM			=	rm -f
 
-all: $(NAME)
+SRCS		=	srcs/main.c \
+				srcs/alg_utils.c \
+				srcs/controls.c \
+				srcs/draw.c \
+				srcs/line_alg.c \
+				srcs/parse_map.c \
+				srcs/utils.c \
+				srcs/utils_2.c
 
-$(NAME): $(LIBFT) $(MLX) $(OBJ_DIR) $(OBJS)
-	$(CC) $(CFLAGS) $(OBJS) $(LIBFT) $(MLXFLAGS) -o $(NAME)
+OBJS		=	$(patsubst srcs/%.c,$(OBJDIR)/%.o,$(SRCS))
 
-$(OBJ_DIR):
-	mkdir -p $(OBJ_DIR)
 
-$(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
-	$(CC) $(CFLAGS) -c $< -o $@
+all:			$(NAME)
 
-$(LIBFT):
-	make -C lib
+$(NAME):		$(OBJS) $(LIBFT_A) $(MLX_A)
+				@$(CC) $(CFLAGS) $(OBJS) -L$(LIBFT) -lft -L$(MLX) -lmlx -lm -o $(NAME) -framework OpenGL -framework AppKit
 
-$(MLX):
-	make -C minilibx
+$(LIBFT_A):
+				@$(MAKE) -s -C $(LIBFT)
+
+$(MLX_A):
+				@$(MAKE) -s -C $(MLX)
+
+$(OBJDIR)/%.o: 	srcs/%.c | $(OBJDIR)
+				@$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
-	make -C lib clean
-	make -C minilibx clean
-	rm -rf $(OBJ_DIR)
+				@$(RM) $(OBJDIR)/*.o
+				@$(MAKE) clean -s -C $(LIBFT)
+				@$(MAKE) clean -s -C $(MLX)
 
-fclean: clean
-	make -C lib fclean
-	rm -f $(NAME)
 
-re: fclean all
+fclean:			clean
+				@$(MAKE) fclean -s -C $(LIBFT)
+				@$(MAKE) clean -s -C $(MLX)
+				@$(RM) $(NAME)
 
-.PHONY: all clean fclean re
+re:				fclean all
+
+.PHONY:			all clean fclean re
