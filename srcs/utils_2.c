@@ -6,7 +6,7 @@
 /*   By: psantos- <psantos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/09 17:08:46 by psantos-          #+#    #+#             */
-/*   Updated: 2025/07/09 17:10:09 by psantos-         ###   ########.fr       */
+/*   Updated: 2025/07/09 18:58:31 by psantos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,4 +59,14 @@ void	ft_skip_lines(int fd)
 			break ;
 		free(line);
 	}
+}
+
+void ft_free_split(char **arr)
+{
+    int i = 0;
+    if (!arr)
+        return;
+    while (arr[i])
+        free(arr[i++]);
+    free(arr);
 }

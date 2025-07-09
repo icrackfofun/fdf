@@ -6,7 +6,7 @@
 /*   By: psantos- <psantos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/08 00:10:29 by psantos-          #+#    #+#             */
-/*   Updated: 2025/07/09 17:08:33 by psantos-         ###   ########.fr       */
+/*   Updated: 2025/07/09 18:33:01 by psantos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,9 +78,8 @@ void	ft_fill_table(int **n, char *line, int width)
 			n[i][1] = ft_atoi_base(&num[i][++j], "0123456789ABCDEF");
 		else
 			n[i][1] = -1;
-		free(num[i]);
 	}
-	free(num);
+	ft_free_split(num);
 }
 
 static void	ft_get_z_min_max(t_map *map)

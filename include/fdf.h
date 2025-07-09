@@ -6,7 +6,7 @@
 /*   By: psantos- <psantos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/08 00:04:40 by psantos-          #+#    #+#             */
-/*   Updated: 2025/07/09 17:10:53 by psantos-         ###   ########.fr       */
+/*   Updated: 2025/07/09 18:58:39 by psantos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ typedef struct s_fdf
 void		ft_check_valid(char *filename, t_map *map);
 void		ft_fill_map_array(int fd, t_map *map);
 void		ft_fill_table(int **n, char *line, int width);
+void		ft_free_split(char **arr);
 int			ft_count_words(char *line);
 void		ft_skip_lines(int fd);
 void		ft_draw(t_map *map, t_fdf *env);

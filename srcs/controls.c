@@ -6,32 +6,58 @@
 /*   By: psantos- <psantos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/09 01:16:54 by psantos-          #+#    #+#             */
-/*   Updated: 2025/07/09 15:48:42 by psantos-         ###   ########.fr       */
+/*   Updated: 2025/07/09 18:57:50 by psantos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
+static void	ft_free_map(t_map *map)
+{
+	int	y;
+	int	x;
+
+	if (!map || !map->array)
+		return ;
+	y = 0;
+	while (y < map->height)
+	{
+		if (map->array[y])
+		{
+			x = 0;
+			while (x < map->width)
+			{
+				if (map->array[y][x])
+					free(map->array[y][x]);
+				x++;
+			}
+			free(map->array[y]);
+		}
+		y++;
+	}
+	free(map->array);
+	free(map);
+}
+
+static void	ft_free_env(t_fdf *env)
+{
+	if (!env)
+		return;
+	if (env->img)
+		mlx_destroy_image(env->mlx, env->img);
+	if (env->win)
+		mlx_destroy_window(env->mlx, env->win);
+	if (env->map)
+		ft_free_map(env->map);
+	free(env);
+}
+
 int	ft_close_win(void *params)
 {
 	t_fdf	*env;
-	int		x;
-	int		y;
 
 	env = (t_fdf *)params;
-	mlx_destroy_image(env->mlx, env->img);
-	mlx_destroy_window(env->mlx, env->win);
-	y = -1;
-	while (++y < env->map->height)
-	{
-		x = -1;
-		while (++x < env->map->width)
-			free(env->map->array[y][x]);
-		free(env->map->array[y]);
-	}
-	free(env->map->array);
-	free(env->map);
-	free(env);
+	ft_free_env(env);
 	exit(0);
 }
 
