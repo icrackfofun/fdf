@@ -6,7 +6,7 @@
 /*   By: psantos- <psantos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/08 00:04:40 by psantos-          #+#    #+#             */
-/*   Updated: 2025/07/09 18:58:39 by psantos-         ###   ########.fr       */
+/*   Updated: 2025/07/09 22:15:47 by psantos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,9 +59,9 @@ typedef struct s_fdf
 	t_map	*map;
 }			t_fdf;
 
-void		ft_check_valid(char *filename, t_map *map);
-void		ft_fill_map_array(int fd, t_map *map);
-void		ft_fill_table(int **n, char *line, int width);
+void		ft_check_valid(char *filename, t_fdf *env);
+void		ft_fill_map_array(int fd, t_fdf *env);
+void		ft_fill_table(int **n, char *line, int width, t_fdf *env);
 void		ft_free_split(char **arr);
 int			ft_count_words(char *line);
 void		ft_skip_lines(int fd);
@@ -71,7 +71,7 @@ void		ft_draw_line(t_point s, t_point e, t_fdf *env);
 t_point		project(int x, int y, t_fdf *env);
 int			ft_min(int a, int b);
 int			get_default_color(int z, t_map *map);
-void		ft_return_error(const char *err_msg, int system_function);
+void		ft_return_error(t_fdf **env);
 
 //line algorithm utils
 float		ft_abs(float n);

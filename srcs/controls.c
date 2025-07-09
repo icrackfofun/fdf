@@ -6,7 +6,7 @@
 /*   By: psantos- <psantos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/09 01:16:54 by psantos-          #+#    #+#             */
-/*   Updated: 2025/07/09 18:57:50 by psantos-         ###   ########.fr       */
+/*   Updated: 2025/07/09 22:22:21 by psantos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,17 +39,20 @@ static void	ft_free_map(t_map *map)
 	free(map);
 }
 
-static void	ft_free_env(t_fdf *env)
+void	ft_return_error(t_fdf **env)
 {
-	if (!env)
-		return;
-	if (env->img)
-		mlx_destroy_image(env->mlx, env->img);
-	if (env->win)
-		mlx_destroy_window(env->mlx, env->win);
-	if (env->map)
-		ft_free_map(env->map);
-	free(env);
+	if (env && *env)
+	{
+		if ((*env)->img)
+			mlx_destroy_image((*env)->mlx, (*env)->img);
+		if ((*env)->win)
+			mlx_destroy_window((*env)->mlx, (*env)->win);
+		if ((*env)->map)
+			ft_free_map((*env)->map);
+		free(*env);
+		*env = NULL;
+	}
+	exit(1);
 }
 
 int	ft_close_win(void *params)
@@ -57,8 +60,8 @@ int	ft_close_win(void *params)
 	t_fdf	*env;
 
 	env = (t_fdf *)params;
-	ft_free_env(env);
-	exit(0);
+	ft_return_error(&env);
+	return (0);
 }
 
 int	ft_key_press(int keycode, void *params)
@@ -67,7 +70,7 @@ int	ft_key_press(int keycode, void *params)
 
 	env = (t_fdf *)params;
 	if (keycode == ESCAPE)
-		ft_close_win(env);
+		ft_close_win(&env);
 	return (0);
 }
 

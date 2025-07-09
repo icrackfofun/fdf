@@ -6,30 +6,35 @@
 /*   By: psantos- <psantos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/09 17:08:46 by psantos-          #+#    #+#             */
-/*   Updated: 2025/07/09 18:58:31 by psantos-         ###   ########.fr       */
+/*   Updated: 2025/07/09 22:24:04 by psantos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-void	ft_fill_map_array(int fd, t_map *map)
+void	ft_fill_table(int **n, char *line, int width, t_fdf *env)
 {
-	char	*line;
+	char	**num;
 	int		i;
+	int		j;
 
-	i = 0;
-	line = get_next_line(fd);
-	while (line && *line != '\0' && i < map->height)
+	num = ft_split(line, ' ');
+	i = -1;
+	while (num[++i] && i < width)
 	{
-		map->array[i] = malloc(sizeof(int *) * map->width);
-		if (!map->array[i])
-			ft_return_error("malloc error", 1);
-		ft_fill_table(map->array[i], line, map->width);
-		free(line);
-		line = get_next_line(fd);
-		i++;
+		n[i] = malloc(sizeof(int) * 2);
+		if (!n[i])
+			ft_return_error(&env);
+		n[i][0] = ft_atoi(num[i]);
+		j = 0;
+		while (num[i][j] && num[i][j] != ',')
+			j++;
+		if (num[i][j] == ',')
+			n[i][1] = ft_atoi_base(&num[i][++j], "0123456789ABCDEF");
+		else
+			n[i][1] = -1;
 	}
-	free(line);
+	ft_free_split(num);
 }
 
 int	ft_count_words(char *line)

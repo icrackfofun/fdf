@@ -6,7 +6,7 @@
 #    By: psantos- <psantos-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/04/18 14:54:27 by psantos-          #+#    #+#              #
-#    Updated: 2025/07/09 01:44:31 by psantos-         ###   ########.fr        #
+#    Updated: 2025/07/09 19:39:24 by psantos-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,8 +15,7 @@ CFLAGS = -Wall -Werror -Wextra
 NAME = libft.a
 
 SRC = 	ft_atoi.c ft_strdup.c ft_strjoin.c ft_split.c gnl.c gnl_utils.c \
-		printf.c printf_conv.c printf_conv_aux.c ft_putendl_fd.c ft_atoi_base.c \
-		ft_toupper.c ft_strncmp.c
+		ft_putendl_fd.c ft_atoi_base.c ft_toupper.c ft_strncmp.c
 
 OBJ = $(SRC:.c=.o)
 

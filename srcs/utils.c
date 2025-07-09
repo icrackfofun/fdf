@@ -6,7 +6,7 @@
 /*   By: psantos- <psantos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/08 00:13:39 by psantos-          #+#    #+#             */
-/*   Updated: 2025/07/09 16:49:54 by psantos-         ###   ########.fr       */
+/*   Updated: 2025/07/09 22:24:59 by psantos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,15 +31,6 @@ void	ft_get_z_min_max(t_map *map, int n)
 		map->z_max = n;
 	if (n < map->z_min)
 		map->z_min = n;
-}
-
-void	ft_return_error(const char *err_msg, int system_function)
-{
-	if (!system_function)
-		ft_putendl_fd(err_msg, STDERR_FILENO);
-	else
-		perror(err_msg);
-	exit(-1);
 }
 
 int	ft_min(int a, int b)

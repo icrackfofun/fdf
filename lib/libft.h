@@ -6,7 +6,7 @@
 /*   By: psantos- <psantos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/18 15:53:43 by psantos-          #+#    #+#             */
-/*   Updated: 2025/07/09 01:42:15 by psantos-         ###   ########.fr       */
+/*   Updated: 2025/07/09 19:39:22 by psantos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,11 +27,8 @@
 //libft
 size_t			ft_strlcpy(char *dest, const char *src, size_t dstsize);
 size_t			ft_strlen(const char *str);
-void			*ft_calloc(size_t nmemb, size_t size);
 void			*ft_memset(void *ptr, int value, size_t num);
 long int		ft_atoi(const char *str);
-char			*ft_strdup(const char *s);
-char			*ft_strjoin(char const *s1, char const *s2);
 char			**ft_split(char const *s, char c);
 void			ft_putendl_fd(const char *s, int fd);
 unsigned int	ft_atoi_base(const char *str, const char *base);
@@ -49,18 +46,5 @@ void			ft_trimbuffer(char *arr);
 char			*ft_valread(char **string, ssize_t bytes, char *arr);
 char			*read_line(int fd, char **buffer);
 void			*ft_memset(void *s, int c, size_t n);
-
-//printf
-int				ft_printf(const char *string, ...);
-int				ft_printarg(char c, va_list *args);
-int				ft_putchar(char c);
-int				ft_putstr(char *str);
-int				ft_putptr(void *ptr);
-int				ft_putnbr(int n);
-int				ft_putunbr(unsigned int n);
-int				ft_puthex(unsigned int n, char c);
-int				add_len(int count, int *total_len);
-char			*ft_itoa_base(uintptr_t n, char *baseset);
-int				ft_numlen(uintptr_t n, size_t base);
 
 #endif
