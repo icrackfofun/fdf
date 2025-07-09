@@ -6,7 +6,7 @@
 /*   By: psantos- <psantos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/09 01:16:54 by psantos-          #+#    #+#             */
-/*   Updated: 2025/07/09 22:22:21 by psantos-         ###   ########.fr       */
+/*   Updated: 2025/07/09 23:35:14 by psantos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,8 @@ void	ft_return_error(t_fdf **env)
 			mlx_destroy_window((*env)->mlx, (*env)->win);
 		if ((*env)->map)
 			ft_free_map((*env)->map);
+		destroy_display((*env)->mlx);
+		free((*env)->mlx);
 		free(*env);
 		*env = NULL;
 	}
@@ -70,7 +72,7 @@ int	ft_key_press(int keycode, void *params)
 
 	env = (t_fdf *)params;
 	if (keycode == ESCAPE)
-		ft_close_win(&env);
+		ft_close_win(env);
 	return (0);
 }
 

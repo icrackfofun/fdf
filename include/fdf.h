@@ -6,7 +6,7 @@
 /*   By: psantos- <psantos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/08 00:04:40 by psantos-          #+#    #+#             */
-/*   Updated: 2025/07/09 22:15:47 by psantos-         ###   ########.fr       */
+/*   Updated: 2025/07/09 23:23:42 by psantos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,27 @@
 
 # define WIDTH 1500
 # define HEIGHT 1000
-# define ESCAPE 53
 # define Z_HEIGHT 1.0
 # define X_OFFSET 650
 # define Y_OFFSET 250
+
+# ifdef __linux__
+
+static inline void	destroy_display(void *mlx)
+{
+	mlx_destroy_display(mlx);
+}
+#  define ESCAPE 65307
+
+# else
+
+static inline void	destroy_display(void *mlx)
+{
+	(void)mlx;
+}
+#  define ESCAPE 53
+
+# endif
 
 typedef struct s_point
 {
