@@ -6,7 +6,7 @@
 /*   By: psantos- <psantos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/08 00:04:40 by psantos-          #+#    #+#             */
-/*   Updated: 2025/07/09 23:23:42 by psantos-         ###   ########.fr       */
+/*   Updated: 2025/07/10 16:42:32 by psantos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,6 @@ void		ft_draw(t_map *map, t_fdf *env);
 void		ft_put_pixel(t_fdf *env, int x, int y, int color);
 void		ft_draw_line(t_point s, t_point e, t_fdf *env);
 t_point		project(int x, int y, t_fdf *env);
-int			ft_min(int a, int b);
 int			get_default_color(int z, t_map *map);
 void		ft_return_error(t_fdf **env);
 

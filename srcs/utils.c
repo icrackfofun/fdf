@@ -6,57 +6,74 @@
 /*   By: psantos- <psantos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/08 00:13:39 by psantos-          #+#    #+#             */
-/*   Updated: 2025/07/09 22:24:59 by psantos-         ###   ########.fr       */
+/*   Updated: 2025/07/10 16:51:19 by psantos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-void	ft_put_pixel(t_fdf *env, int x, int y, int color)
+void	ft_fill_table(int **n, char *line, int width, t_fdf *env)
 {
+	char	**num;
 	int		i;
+	int		j;
 
-	if (x >= 0 && x < WIDTH && y >= 0 && y < HEIGHT)
+	num = ft_split(line, ' ');
+	i = -1;
+	while (num[++i] && i < width)
 	{
-		i = (x * env->bpp / 8) + (y * env->size_line);
-		env->data_addr[i] = color;
-		env->data_addr[++i] = color >> 8;
-		env->data_addr[++i] = color >> 16;
+		n[i] = malloc(sizeof(int) * 2);
+		if (!n[i])
+			ft_return_error(&env);
+		n[i][0] = ft_atoi(num[i]);
+		j = 0;
+		while (num[i][j] && num[i][j] != ',')
+			j++;
+		if (num[i][j] == ',')
+			n[i][1] = ft_atoi_base(&num[i][++j], "0123456789ABCDEF");
+		else
+			n[i][1] = -1;
+	}
+	ft_free_split(num);
+}
+
+int	ft_count_words(char *line)
+{
+	int	i;
+	int	width;
+
+	i = 0;
+	width = 0;
+	while (line[i])
+	{
+		if (line[i] != ' ' && (line[i + 1] == ' ' || line[i + 1] == '\0'))
+			width++;
+		i++;
+	}
+	return (width);
+}
+
+void	ft_skip_lines(int fd)
+{
+	char	*line;
+
+	while (1)
+	{
+		line = get_next_line(fd);
+		if (!line)
+			break ;
+		free(line);
 	}
 }
 
-void	ft_get_z_min_max(t_map *map, int n)
+void	ft_free_split(char **arr)
 {
-	if (n > map->z_max)
-		map->z_max = n;
-	if (n < map->z_min)
-		map->z_min = n;
-}
+	int	i;
 
-int	ft_min(int a, int b)
-{
-	if (a < b)
-		return (a);
-	return (b);
-}
-
-int	get_default_color(int z, t_map *map)
-{
-	double			percent;
-	unsigned int	max;
-
-	max = map->z_max - map->z_min;
-	if (max == 0)
-		return (0x432371);
-	percent = ((double)(z - map->z_min) / max);
-	if (percent < 0.2)
-		return (0x432371);
-	else if (percent < 0.4)
-		return (0x714674);
-	else if (percent < 0.6)
-		return (0x9F6976);
-	else if (percent < 0.8)
-		return (0xCC8B79);
-	else
-		return (0xFAAE7B);
+	i = 0;
+	if (!arr)
+		return ;
+	while (arr[i])
+		free(arr[i++]);
+	free(arr);
 }

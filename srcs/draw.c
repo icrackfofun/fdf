@@ -6,11 +6,32 @@
 /*   By: psantos- <psantos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/08 00:12:15 by psantos-          #+#    #+#             */
-/*   Updated: 2025/07/09 16:49:56 by psantos-         ###   ########.fr       */
+/*   Updated: 2025/07/10 16:51:03 by psantos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
+
+int	get_default_color(int z, t_map *map)
+{
+	double			percent;
+	unsigned int	max;
+
+	max = map->z_max - map->z_min;
+	if (max == 0)
+		return (0x432371);
+	percent = ((double)(z - map->z_min) / max);
+	if (percent < 0.2)
+		return (0x432371);
+	else if (percent < 0.4)
+		return (0x714674);
+	else if (percent < 0.6)
+		return (0x9F6976);
+	else if (percent < 0.8)
+		return (0xCC8B79);
+	else
+		return (0xFAAE7B);
+}
 
 t_point	project(int x, int y, t_fdf *env)
 {

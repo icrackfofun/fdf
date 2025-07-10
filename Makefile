@@ -12,12 +12,11 @@ RM		=	rm -f
 
 SRCS	=	srcs/main.c \
 			srcs/alg_utils.c \
-			srcs/controls.c \
+			srcs/close.c \
 			srcs/draw.c \
 			srcs/line_alg.c \
 			srcs/parse_map.c \
 			srcs/utils.c \
-			srcs/utils_2.c
 
 OBJS	=	$(patsubst srcs/%.c,$(OBJDIR)/%.o,$(SRCS))
 
