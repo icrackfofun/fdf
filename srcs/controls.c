@@ -6,7 +6,7 @@
 /*   By: psantos- <psantos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/09 01:16:54 by psantos-          #+#    #+#             */
-/*   Updated: 2025/07/09 23:35:14 by psantos-         ###   ########.fr       */
+/*   Updated: 2025/07/10 01:28:53 by psantos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,26 +17,28 @@ static void	ft_free_map(t_map *map)
 	int	y;
 	int	x;
 
-	if (!map || !map->array)
-		return ;
-	y = 0;
-	while (y < map->height)
+	if (map && map->array)
 	{
-		if (map->array[y])
+		y = 0;
+		while (y < map->height)
 		{
-			x = 0;
-			while (x < map->width)
+			if (map->array[y])
 			{
-				if (map->array[y][x])
-					free(map->array[y][x]);
-				x++;
+				x = 0;
+				while (x < map->width)
+				{
+					if (map->array[y][x])
+						free(map->array[y][x]);
+					x++;
+				}
+				free(map->array[y]);
 			}
-			free(map->array[y]);
+			y++;
 		}
-		y++;
+		free(map->array);
 	}
-	free(map->array);
-	free(map);
+	if (map)
+		free(map);
 }
 
 void	ft_return_error(t_fdf **env)
@@ -52,7 +54,6 @@ void	ft_return_error(t_fdf **env)
 		destroy_display((*env)->mlx);
 		free((*env)->mlx);
 		free(*env);
-		*env = NULL;
 	}
 	exit(1);
 }
